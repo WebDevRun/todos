@@ -1,0 +1,125 @@
+@buttonPadding: 5px 10px;
+@formMarginBottom: 20px;
+
+.main {
+  margin: auto 10%;
+
+  &__todoForm {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(45, 45, 45, 0.5);
+  }
+
+  &__addTodoButton {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+
+    & input {
+      cursor: pointer;
+      padding: 10px 20px;
+      border: 0;
+      border-radius: 20px;
+      background-color: #dd7b7b;
+    }
+  }
+
+  &__todoList {
+    margin-top: 15px;
+  }
+}
+
+.todoForm {
+  &__form {
+    width: 50%;
+    margin: 10% auto 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: rgb(254, 254, 254);
+
+    & input,
+    & textarea {
+      margin-bottom: @formMarginBottom;
+    }
+
+    & textarea {
+      resize: vertical;
+    }
+
+    & button {
+      padding: @buttonPadding;
+    }
+  }
+}
+
+.todoList {
+  &__item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    display: grid;
+    row-gap: 10px;
+    grid-template-areas:
+      'title endDate'
+      'description description'
+      'complite complite'
+      'controls controls';
+  }
+
+  &__title {
+    grid-area: title;
+  }
+
+  &__endDate {
+    grid-area: endDate;
+  }
+
+  &__description {
+    grid-area: description;
+  }
+
+  &__complite {
+    grid-area: complite;
+  }
+
+  &__controls {
+    grid-area: controls;
+    display: flex;
+    gap: 10px;
+    & input {
+      padding: @buttonPadding;
+    }
+  }
+}
+
+.deleteTodoForm {
+  &__form {
+    width: 50%;
+    margin: 10% auto 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: rgb(254, 254, 254);
+  }
+
+  &__query {
+    text-align: center;
+    margin-bottom: @formMarginBottom;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    & input {
+      padding: @buttonPadding;
+    }
+  }
+}
