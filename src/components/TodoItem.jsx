@@ -24,11 +24,23 @@ export function TodoItem({ todo }) {
   const deleteButtonClickHandler = () => setOpenDeleteModal((prev) => !prev)
 
   useEffect(() => {
+    let timer
     const nowDate = Date.now()
     const endDate = new Date(todo.endDate)
-    if (nowDate > endDate && !todo.complite)
-      return articleRef.current.classList.add('item_expired')
-    articleRef.current.classList.remove('item_expired')
+
+    if (endDate <= nowDate) articleRef.current.classList.add('item_expired')
+    if (endDate > nowDate && !todo.complite) {
+      articleRef.current.classList.remove('item_expired')
+      timer = setTimeout(() => {
+        articleRef.current.classList.add('item_expired')
+      }, endDate - nowDate)
+    }
+    if (todo.complite) {
+      clearTimeout(timer)
+      articleRef.current.classList.remove('item_expired')
+    }
+
+    return () => clearTimeout(timer)
   }, [todo.endDate, todo.complite])
 
   useEffect(() => {
