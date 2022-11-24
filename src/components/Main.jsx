@@ -6,13 +6,16 @@ import { TodoList } from './TodoList'
 import { database } from '../firebase'
 
 export function Main() {
-  const [todos, setTodo] = useState([])
+  const [todos, setTodo] = useState(null)
   const [openForm, setOpenForm] = useState(false)
 
   useEffect(() => {
     const starCountRef = ref(database, 'todos/')
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val()
+      if (!data) {
+        return setTodo(null)
+      }
       const dataValues = Object.values(data)
       setTodo(dataValues)
     })
@@ -20,7 +23,7 @@ export function Main() {
 
   return (
     <main className="main">
-      <TodoList todos={todos} />
+      {todos && <TodoList todos={todos} />}
       <AddTodoButton setOpenForm={setOpenForm} />
       {openForm && (
         <AddTodoForm openForm={openForm} setOpenForm={setOpenForm} />

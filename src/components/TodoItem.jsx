@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { DeleteTodoForm } from './DeleteTodoForm'
 import { UpdateTodoForm } from './UpdateTodoForm'
-import { ref, update } from 'firebase/database'
+import { ref as refDB, update } from 'firebase/database'
 import { database } from '../firebase'
 
 export function TodoItem({ todo }) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [openUpdateModal, setOpenUpdateModal] = useState(false)
   const checkboxOnChangeHandler = () => {
-    update(ref(database, `todos/${todo.id}`), {
+    update(refDB(database, `todos/${todo.id}`), {
       ...todo,
       complite: !todo.complite,
     })
@@ -22,6 +22,16 @@ export function TodoItem({ todo }) {
         <h2 className="todoList__title">{todo.title}</h2>
         <p className="todoList__endDate">{todo.endDate}</p>
         <p className="todoList__description">{todo.description}</p>
+        {todo.uploadFilesData?.length && (
+          <div className="todoList__files">
+            <p>Файлы: </p>
+            {todo.uploadFilesData.map((file) => (
+              <a key={file.url} href={file.url}>
+                {`${file.name} (${file.size} байт)`}
+              </a>
+            ))}
+          </div>
+        )}
         <div className="todoList__complite">
           <label>
             <input
@@ -60,7 +70,7 @@ export function TodoItem({ todo }) {
         <DeleteTodoForm
           openModal={openDeleteModal}
           setOpenModal={setOpenDeleteModal}
-          todoId={todo.id}
+          deleteTodo={{ id: todo.id, uploadFilesData: todo.uploadFilesData }}
         />
       )}
     </>

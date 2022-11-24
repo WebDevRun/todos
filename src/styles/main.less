@@ -34,17 +34,26 @@
 }
 
 .todoForm {
-  &__form {
+  &__container {
     width: 50%;
     margin: 10% auto 0;
-    display: flex;
-    flex-direction: column;
     padding: 20px;
     background-color: rgb(254, 254, 254);
+  }
 
-    & input,
-    & textarea {
+  &__form {
+    display: flex;
+    flex-direction: column;
+
+    & > input,
+    & > textarea,
+    & > div {
       margin-bottom: @formMarginBottom;
+    }
+
+    & div {
+      display: flex;
+      gap: 10px;
     }
 
     & textarea {
@@ -54,6 +63,12 @@
     & button {
       padding: @buttonPadding;
     }
+  }
+
+  &__deleteFile > input {
+    margin-left: 5px;
+    padding: 2px 6px;
+    border-radius: 50%;
   }
 }
 
@@ -68,6 +83,7 @@
     grid-template-areas:
       'title endDate'
       'description description'
+      'files files'
       'complite complite'
       'controls controls';
   }
@@ -82,6 +98,12 @@
 
   &__description {
     grid-area: description;
+  }
+
+  &__files {
+    grid-area: files;
+    display: flex;
+    gap: 10px;
   }
 
   &__complite {
