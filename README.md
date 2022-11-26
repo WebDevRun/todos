@@ -19,7 +19,7 @@
 - VITE_STORAGE_BUCKET - storageBucket
 - VITE_MESSAGING_SENDER_ID - messagingSenderId
 - VITE_APP_ID - appId
-- VITE_DATABASE_URL - databaseURL
+- VITE_DB_URL - databaseURL
 
 Эти параметры вы можете получить при создании проекта.
 
@@ -44,3 +44,13 @@ npm run dev
 ```
 npm run build
 ```
+
+Проект соберется в папке **dist**.
+
+4. Вы также можете сгенерировать документацию, используя команду:
+
+```
+npm run docs
+```
+
+Документация соберется в папке **docs**.
