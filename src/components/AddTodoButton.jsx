@@ -1,3 +1,7 @@
+/**
+ * Компонент, отображающий кнопку открытия модального окна.
+ * @param {{setOpenForm: Function}} props
+ */
 export function AddTodoButton({ setOpenForm }) {
   const buttonClickHandler = () => setOpenForm((prev) => !prev)
 

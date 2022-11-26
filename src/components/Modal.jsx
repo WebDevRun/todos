@@ -1,3 +1,7 @@
+/**
+ * Компонент, отображающий модальное окно-обертку.
+ * @param {{children: import("react").ReactNode, openForm: boolean, setOpenForm: function}} children
+ */
 export function Modal({ children, openForm, setOpenForm }) {
   const dialogClickHandler = () => setOpenForm((prev) => !prev)
 

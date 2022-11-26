@@ -4,12 +4,33 @@ import { UpdateTodoForm } from './UpdateTodoForm'
 import { Error } from './Error'
 import { ref as refDB, update } from 'firebase/database'
 import { database } from '../firebase'
+/**
+ * @typedef FileInfo загружаемый файл
+ * @property {string} name название файла
+ * @property {string} url ссылка на файл
+ * @property {number} size размер файла
+ */
 
+/**
+ * @typedef Todo задача
+ * @property {string} id уникальный идентификатор
+ * @property {string} title заголовок
+ * @property {string} [description] описание
+ * @property {string} endDate дата завершения
+ * @property {boolean} complite статус выполнения
+ * @property {FileInfo[]} [uploadFilesData] список загружаемых файлов
+ */
+
+/**
+ * Компонент, отображающий задачу.
+ * @param {{todo: Todo}} todo
+ */
 export function TodoItem({ todo }) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [openUpdateModal, setOpenUpdateModal] = useState(false)
   const [error, setError] = useState(null)
   const articleRef = useRef()
+  /** Функция, обновляющая статус на сервере. */
   const checkboxOnChangeHandler = () => {
     try {
       update(refDB(database, `todos/${todo.id}`), {
@@ -20,13 +41,15 @@ export function TodoItem({ todo }) {
       setError(error.message)
     }
   }
+  /** Функция, инвертирующая состояние openUpdateModal. */
   const updateButtonClickHandler = () => setOpenUpdateModal((prev) => !prev)
+  /** Функция, инвертирующая состояние openDeleteModal. */
   const deleteButtonClickHandler = () => setOpenDeleteModal((prev) => !prev)
 
   useEffect(() => {
     let timer
     const nowDate = Date.now()
-    const endDate = new Date(todo.endDate)
+    const endDate = Number(new Date(todo.endDate))
 
     if (endDate <= nowDate) articleRef.current.classList.add('item_expired')
     if (endDate > nowDate && !todo.complite) {

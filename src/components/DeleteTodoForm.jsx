@@ -5,6 +5,10 @@ import { ref as refStorage, deleteObject } from 'firebase/storage'
 import { database, storage } from '../firebase'
 import { useState } from 'react'
 
+/**
+ * Компонент, отображающий модальное окно для удаления задачи.
+ * @param {{openModal: boolean, setOpenModal: function, deleteTodo: {id: string, uploadFilesData: import('./TodoItem').FileInfo[] | undefined} }} props
+ */
 export function DeleteTodoForm({ openModal, setOpenModal, deleteTodo }) {
   const [disabled, setDisabled] = useState(false)
   const [error, setError] = useState(null)

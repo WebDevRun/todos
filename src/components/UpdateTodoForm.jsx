@@ -10,6 +10,10 @@ import {
 } from 'firebase/storage'
 import { database, storage } from '../firebase'
 
+/**
+ *
+ * @param {{openModal: boolean, setOpenModal: function, todo: import('./TodoItem').Todo}} props
+ */
 export function UpdateTodoForm({ openModal, setOpenModal, todo }) {
   const [tempTodo, setTempTodo] = useState(todo)
   const [files, setFiles] = useState({
@@ -18,22 +22,43 @@ export function UpdateTodoForm({ openModal, setOpenModal, todo }) {
   })
   const [disabled, setDisabled] = useState(false)
   const [error, setError] = useState(null)
+  /**
+   * Функция, отменяющая дальнейшую передачу события.
+   * @param {Event} event
+   */
   const formCkickHandler = (event) => event.stopPropagation()
+  /**
+   * Функция, обновляющая заголовок задачи.
+   * @param {Event} event
+   */
   const titleInputChangeHandler = (event) =>
     setTempTodo({
       ...tempTodo,
       title: event.target.value,
     })
+  /**
+   * Функция, обновляющая описание задачи.
+   * @param {Event} event
+   */
   const descriptionInputChangeHandler = (event) =>
     setTempTodo({
       ...tempTodo,
       description: event.target.value,
     })
+  /**
+   * Функция, обновляющая дату завершения задачи.
+   * @param {Event} event
+   */
   const endDateInputChangeHandler = (event) =>
     setTempTodo({
       ...tempTodo,
       endDate: event.target.value,
     })
+
+  /**
+   * Функция, удаляющая закрепленный файл из задачи.
+   * @param {string} fileName
+   */
   const deleteButtonClickHandler = (fileName) => {
     const uploadFilesData = tempTodo.uploadFilesData?.filter(
       (uploadFileData) => uploadFileData.name !== fileName
@@ -45,6 +70,10 @@ export function UpdateTodoForm({ openModal, setOpenModal, todo }) {
       uploadFilesData,
     })
   }
+  /**
+   * Функция, добаявляющая файлы к задаче.
+   * @param {Event} event
+   */
   const uploadFilesButtonChangeHandler = (event) => {
     setFiles({ ...files, uploads: [...event.target.files] })
 
@@ -54,6 +83,10 @@ export function UpdateTodoForm({ openModal, setOpenModal, todo }) {
         uploadFilesData: [],
       })
   }
+  /**
+   * Функция, отправляющая данные формы на сервер.
+   * @param {Event} event
+   */
   const formSubmitHandler = async (event) => {
     try {
       event.preventDefault()

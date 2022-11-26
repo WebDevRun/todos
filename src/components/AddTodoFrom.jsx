@@ -9,16 +9,28 @@ import { database, storage } from '../firebase'
 import { Modal } from './Modal'
 import { Error } from './Error'
 
+/**
+ * Компонент, отображающий модальное окно добавления задачи.
+ * @param {{openForm: boolean,  setOpenForm: Function}} props
+ */
 export function AddTodoForm({ openForm, setOpenForm }) {
   const [disabled, setDisabled] = useState(false)
   const [error, setError] = useState(null)
+  /**
+   * Функция, отменяющая дальнейшую передачу события.
+   * @param {Event} event
+   */
   const formCkickHandler = (event) => event.stopPropagation()
+  /**
+   * Функция, отправляющая данные формы на сервер.
+   * @param {Event} event
+   */
   const formSubmitHandler = async (event) => {
     try {
       event.preventDefault()
       setDisabled(true)
       const formData = new FormData(event.target)
-      const id = Date.now()
+      const id = String(Date.now())
       const uploadFiles = []
       const setData = {
         complite: false,

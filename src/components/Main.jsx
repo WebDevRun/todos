@@ -5,19 +5,21 @@ import { AddTodoForm } from './AddTodoFrom'
 import { TodoList } from './TodoList'
 import { database } from '../firebase'
 
+/** Компонент, отображающий основную информацию на сайте. */
 export function Main() {
-  const [todos, setTodo] = useState(null)
+  const [todos, setTodos] = useState(null)
   const [openForm, setOpenForm] = useState(false)
 
   useEffect(() => {
     const starCountRef = ref(database, 'todos/')
     onValue(starCountRef, (snapshot) => {
+      /** @type {{[key: string]: import ("./TodoItem").Todo} | null} */
       const data = snapshot.val()
       if (!data) {
-        return setTodo(null)
+        return setTodos(null)
       }
       const dataValues = Object.values(data)
-      setTodo(dataValues)
+      setTodos(dataValues)
     })
   }, [])
 
