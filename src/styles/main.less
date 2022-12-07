@@ -1,0 +1,191 @@
+@buttonPadding: 5px 10px;
+@formMarginBottom: 20px;
+
+.main {
+  height: 100%;
+  min-height: 100vh;
+  margin: auto 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__todoForm {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(45, 45, 45, 0.5);
+  }
+
+  &__addTodoButton {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+
+    & input {
+      cursor: pointer;
+      padding: 10px 20px;
+      border: 0;
+      border-radius: 20px;
+      background-color: #dd7b7b;
+    }
+  }
+
+  &__todoList {
+    margin-top: 15px;
+  }
+}
+
+.main__loader {
+  position: relative;
+  width: 150px;
+  height: 150px;
+
+  & div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+    border: 20px solid #000;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000 transparent transparent transparent;
+  }
+
+  & div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  & div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  & div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.todoForm {
+  &__container {
+    width: 50%;
+    margin: 10% auto 0;
+    padding: 20px;
+    background-color: rgb(254, 254, 254);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+
+    & > input,
+    & > textarea,
+    & > div {
+      margin-bottom: @formMarginBottom;
+    }
+
+    & div {
+      display: flex;
+      gap: 10px;
+    }
+
+    & textarea {
+      resize: vertical;
+    }
+
+    & button {
+      padding: @buttonPadding;
+    }
+  }
+
+  &__deleteFile > input {
+    margin-left: 5px;
+    padding: 2px 6px;
+    border-radius: 50%;
+  }
+}
+
+.todoList {
+  &__item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    display: grid;
+    row-gap: 10px;
+    column-gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &__files {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__complite {
+    font-size: 1.1em;
+
+    & label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    & input {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    gap: 10px;
+    & input {
+      padding: @buttonPadding;
+    }
+  }
+}
+
+.deleteTodoForm {
+  &__form {
+    width: 50%;
+    margin: 10% auto 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: rgb(254, 254, 254);
+  }
+
+  &__query {
+    text-align: center;
+    margin-bottom: @formMarginBottom;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    & input {
+      padding: @buttonPadding;
+    }
+  }
+}
+
+.item {
+  &_ready {
+    background-color: rgb(88, 196, 122);
+  }
+
+  &_expired {
+    background-color: rgb(224, 141, 105);
+  }
+}
